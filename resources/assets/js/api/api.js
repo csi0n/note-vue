@@ -27,3 +27,12 @@ export const myNotes = params => {
 export const storeNote = params => {
     return axios.post(`${base}/api/note`, params);
 };
+export const editNote = params => {
+    return axios.get(`${base}/api/note/${params.id}/edit`,params);
+};
+export const patchNote = params => {
+    return axios.patch(`${base}/api/note/${params.id}`,params);
+};
+export const destroyNote = params =>{
+    return axios.delete(`${base}/api/note/${params.id}`,params);
+};

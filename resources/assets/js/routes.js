@@ -4,15 +4,15 @@
 export default [{
     path: '/',
     component: require('./components/Home.vue'),
-    name: 'home'
+    name: 'home',
 }, {
     path: '/login',
     component: require('./components/Login.vue'),
-    name: 'login'
+    name: 'login',
 }, {
     path: '/register',
     component: require('./components/Register.vue'),
-    name: 'register'
+    name: 'register',
 }, {
     path: '/note/add',
     component: require('./components/Note/Add.vue'),

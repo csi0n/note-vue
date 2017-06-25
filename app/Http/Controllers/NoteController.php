@@ -33,6 +33,16 @@ class NoteController extends Controller
             return ApiResponseService::fail($e->getMessage());
         }
     }
+
+    public function edit($id)
+    {
+        try {
+            $note=$this->noteService->edit($id);
+            return ApiResponseService::success(compact('note'));
+        } catch (\Exception $e) {
+            return ApiResponseService::fail($e->getMessage());
+        }
+    }
     public function show($id)
     {
         try {
@@ -55,10 +65,10 @@ class NoteController extends Controller
     public function destroy($id)
     {
         try {
-            $this->noteService->destroy($id);
+            $this->noteService->delete($id);
             return ApiResponseService::success();
         } catch (\Exception $e) {
-            return ApiResponseServices::fail();
+            return ApiResponseService::fail();
         }
     }
 }

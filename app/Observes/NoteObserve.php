@@ -8,10 +8,10 @@
 
 namespace App\Observes;
 
-class NoteObserve
-{
-    public function creating($note)
-    {
-        $note->user_id = user()->id;
-    }
+use App\Models\Note;
+
+class NoteObserve {
+	public function creating( Note $note ) {
+		$note->user_id = user()->id;
+	}
 }
