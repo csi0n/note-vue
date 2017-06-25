@@ -1,18 +1,64 @@
 <template>
             <div>
-                <el-col :span="6" v-for="(item, index) in lists" :key="index" :offset="index > 0 ? 1 : 0">
-                            <el-card :body-style="{ padding: '0px' }">
-                                <span style="padding:14px;margin-top: 8px;">{{item.title}}</span>
-                                <div style="padding: 14px;">
-                                    <span>{{item.content}}</span>
-                                    <div class="bottom clearfix">
-                                        <time class="time">{{ item.created_at }}</time>
-                                        <i class="el-icon-edit" @click="goEdit(item.id)"></i>
-                                        <i  class="el-icon-delete2" @click="destroy(item.id)"></i>
-                                    </div>
-                                </div>
+                <template v-if="type==='grid'">
+                    <el-row>
+                        <el-col :span="6" v-for="(item, index) in lists" :key="index" :offset="index > 0 ? 1 : 0">
+                                <el-card>
+                                    <el-row>
+                                        <el-col :span="24">
+                                             <span class="card-title">{{item.title}}</span>
+                                        </el-col>
+                                    </el-row>
+                                    <el-row>
+                                        <el-col :span="24">
+                                            <span class="card-content">{{item.content}}</span>
+                                        </el-col>
+                                    </el-row>
+                                   <el-row>
+                                       <el-col :span="12">
+                                           <time class="card-time">{{item.created_at}}</time>
+                                       </el-col>
+                                       <el-col :span="12">
+                                           <div class="pull-right iconfont-group">
+                                               <i class="iconfont icon-edit" @click="$router.push({name:'note.edit',params:{id:item.id}})"></i>
+                                                <i  class="iconfont icon-delete" @click="destroy(item.id)"></i>
+                                           </div>
+                                       </el-col>
+                                   </el-row>
+                                </el-card>
+                        </el-col>
+                    </el-row>
+                </template>
+                <template v-else="type==='list'">
+                    <el-row>
+                        <el-col :span="24" v-for="(item,index) in lists" :key="index">
+                            <el-card>
+                                <el-row>
+                                    <el-col :span="12">
+                                        <span class="card-title">{{item.title}}</span>
+                                    </el-col>
+                                    <el-col :span="12">
+                                        <time class="pull card-time">{{item.created_at}}</time>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :span="24">
+                                        <span class="card-content">{{item.content}}</span>
+                                    </el-col>
+                                </el-row>
+                                <el-row>
+                                    <el-col :span="24">
+                                        <div class="iconfont-group">
+                                                <i class="iconfont icon-edit" @click="$router.push({name:'note.edit',params:{id:item.id}})"></i>
+                                                <i  class="iconfont icon-delete" @click="destroy(item.id)"></i>
+                                        </div>
+                                    </el-col>
+                                </el-row>
                             </el-card>
-                </el-col>
+                        </el-col>
+                    </el-row>
+                </template>
+               
             </div>
 </template>
 <script>
@@ -23,13 +69,11 @@
         },
         data() {
             return {
-                lists: []
+                lists: [],
+                type:'list'
             };
         },
         methods: {
-            goEdit(id){
-                this.$router.push({name:'note.edit',params:{id:id}});
-            },
             fetchNotes(){
                 let that = this;
                 myNotes().then(function (response) {
@@ -67,3 +111,18 @@
         }
     }
 </script>
+<style type="text/css">
+    .card-body{
+        padding: 14px;
+    }
+    .card-title{
+        font-size: 20px;
+    }
+    .card-content{
+        font-size: 14px;
+    }
+    .card-time{
+        color: grey;
+        font-size: 13px;
+    }
+</style>

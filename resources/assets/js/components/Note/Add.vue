@@ -28,10 +28,14 @@ import {markdownEditor} from "vue-simplemde";
 		},
 		methods:{
 			onSubmit(){
+				let that = this;
 				storeNote(this.form).then(function (argument) {
-					console.log(argument);
+					if (argument.status===200) {
+						that.$message('添加成功');
+						that.$router.push({name:'home'});
+					}
 				}, function (argument) {
-					console.log(argument);
+					
 				})
 			}
 		}

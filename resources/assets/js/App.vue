@@ -5,17 +5,14 @@
 	        		<el-row>
 	        			<el-col :span="12">
 	        				<el-breadcrumb separator="/">
-				                	<el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-				                	<el-breadcrumb-item>活动管理</el-breadcrumb-item>
-				                	<el-breadcrumb-item>活动列表</el-breadcrumb-item>
-				                	<el-breadcrumb-item>活动详情</el-breadcrumb-item>
+				                	<el-breadcrumb-item v-for="(item,index) in breadcrumb" :key="index">{{item.zh_name}}</el-breadcrumb-item>
 	            			</el-breadcrumb>
 	        			</el-col>
-	        			<el-col :span="12" style="float: right !important">
-		        			 <router-link :to="{ name: 'note.add'}">
-	                                                <i class="el-icon-plus"></i>
-	                                            </router-link>
-	        				
+	        			<el-col :span="12">
+	                                                <div class="pull-right">
+	                                                	<i class="iconfont icon-add" @click="$router.push({name: 'note.add'})"></i>
+	                                                	<i v-show="icon.grid" class="iconfont icon-grid"></i>
+	                                                </div>
 	        			</el-col>
 	        		</el-row>
 	        		
@@ -28,5 +25,32 @@
     	</div>
 </template>
 <script>
-    export default{}
+    export default{
+    	created(){
+    		this.breadcrumb=this.$router.meta.breadcrumb;
+    	},
+    	data(){
+    		return {
+    			icon:{
+    				add:true,
+    				grid:this.$router.name==='home'
+    			},
+    			breadcrumb:[]
+    		}
+    	},
+    	methods:{
+    	},
+    	watch:{
+    		'$route':function (argument) {
+    			let actions=argument.meta.actions||[],that=this;
+    			that.icon.grid=false;
+    			that.breadcrumb=argument.meta.breadcrumb;
+    			actions.forEach(function (v) {
+    				if (v==='grid') {
+    					that.icon.grid=true;
+    				}
+    			});
+    		}
+    	}
+    }
 </script>

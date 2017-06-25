@@ -21,6 +21,6 @@ class NoteRepository extends Repository
 
     public function queryNotesBuildByUserId($user_id = -1)
     {
-        return $this->getModel()->whereUserId($user_id);
+        return $this->getModel()->whereUserId($user_id)->orderBy('updated_at','desc');
     }
 }
