@@ -6,7 +6,7 @@ export default [{
     component: require('./components/Home.vue'),
     name: 'home',
     meta:{
-        actions:['grid'],
+        actions:['add','grid'],
         breadcrumb:[{'zh_name':'首页','name':'home'}]
     }
 }, {
